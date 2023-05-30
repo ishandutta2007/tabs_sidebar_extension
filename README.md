@@ -8,6 +8,4 @@
 
 ![Example](screenshot-options.png)
 
-Copyright © 2019 [Eugene Dzhumak](https://github.com/ElForastero).
-
 ---
