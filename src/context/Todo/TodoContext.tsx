@@ -46,7 +46,6 @@ const reducer = (state, { payload, type }) => {
       throw new Error(`No such action: ${type}`);
   }
 };
-
 const TodoProvider = ({ children }) => {
   const [state, dispatch] = useReducer(reducer, []);
   const initRef = useRef(false);
@@ -74,23 +73,7 @@ const TodoProvider = ({ children }) => {
   }, []);
   // Initialize the list with saved items or with initial data
   useEffect(async () => {
-    browser.runtime.sendMessage({ greeting: "getTabInfo" })
-    browser.runtime.onMessage.addListener((msg) => {
-      if (msg.greeting === 'sendTabInfo') {
-        const { tabs } = msg.payload;
-        console.log('TodoContext:tabs:', tabs);
-        // let tabs_min = [];
-        // tabs.forEach((tab) => {
-        //   const { id, title, url } = tab;
-          // tabs_min.appnd({      id: tab.id,      text: "Give it a star :)",      isDone: false,      added: new Date().toDateString()    })
-        //   console.log(`Tab ID: ${id}, Title: ${title}, URL: ${url}`);
-        // });
-        console.log('TodoContext:Number of tabs:', tabs.length);
-      }
-      return true
-    });
-    const { list } = browser.storage.sync.get({ list: getStubData() });
-    console.log(list)
+    const { list } = await browser.storage.sync.get({ list: getStubData() });
     dispatch({ type: INIT, payload: list });
     initRef.current = true;
   }, []);
