@@ -1,0 +1,44 @@
+{
+  "appName": {
+    "message": "Sidebar Tabs − view tabs vertically in sidebar"
+  },
+  "appShortName": {
+    "message": "Sidebar Tabs"
+  },
+  "appDesc": {
+    "message": "Clean and simple ToDo list accessible right from the page."
+  },
+  "placeholder": {
+    "message": "Search tab"
+  },
+  "deleteAll": {
+    "message": "Delete all"
+  },
+  "deleteConfirmation": {
+    "message": "Are you sure you want to delete all items?"
+  },
+  "showDone": {
+    "message": "Show done"
+  },
+  "hideDone": {
+    "message": "Hide done"
+  },
+  "cancel": {
+    "message": "Cancel"
+  },
+  "darkMode": {
+    "message": "Dark mode"
+  },
+  "buttonSize": {
+    "message": "Button size"
+  },
+  "small": {
+    "message": "Small"
+  },
+  "medium": {
+    "message": "Medium"
+  },
+  "large": {
+    "message": "Large"
+  }
+}
