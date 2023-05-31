@@ -72,15 +72,6 @@ export default () => {
           <Fragment>
             {groupedItems.map(({ id, text, isDone }) => (
               <Item key={id}>
-                <Box
-                  display="flex"
-                  alignItems="center"
-                  flexShrink="0"
-                  height="100%"
-                  mr={2}
-                >
-                  <Checkbox checked={isDone} onChange={markAsDone(id)} />
-                </Box>
                 <Text
                   done={isDone}
                   id={id}
