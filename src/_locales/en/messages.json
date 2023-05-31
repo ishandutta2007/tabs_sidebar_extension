@@ -1,12 +1,12 @@
 {
   "appName": {
-    "message": "Sidebar Tabs − view tabs vertically in sidebar"
+    "message": "Sidebar Tabs − view tabs in sidebar"
   },
   "appShortName": {
     "message": "Sidebar Tabs"
   },
   "appDesc": {
-    "message": "Clean and simple ToDo list accessible right from the page."
+    "message": "Browser tabs are arranged vertically in sidebar"
   },
   "placeholder": {
     "message": "Search tab"
