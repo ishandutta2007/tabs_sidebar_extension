@@ -3,23 +3,41 @@ import browser from "webextension-polyfill";
 browser.runtime.onMessage.addListener(async (msg, sender) => {
   if (msg.greeting === "updateBadge") {
     browser.browserAction.setBadgeText({ text: msg.text });
-  } else if (msg.greeting === "showOptionsPage") {
+    return true;
+  }
+  else if (msg.greeting === "showOptionsPage") {
     browser.runtime.openOptionsPage();
-  } else if (msg.greeting === "getTabInfo") {
+    return true;
+  }
+  else if (msg.greeting === "getTabInfo") {
     browser.tabs.query({}).then((tabs) => {
-      console.log('background:tabs:', tabs);
+      console.log('background:getTabInfo:tabs:', tabs);
       const response = { greeting: 'sendTabInfo', payload: { tabs } };
       browser.tabs.sendMessage(sender.tab.id, response); // Send the response directly to the content script
+      return true;
     }).catch((error) => {
-      console.error('background:Error while fetching tabs:', error);
+      console.error('background:getTabInfo:Error:', error);
     });
-  } else if (msg.greeting === "removeTab") {
-      console.log('background:removeTab payload:', msg.text);
-      browser.tabs.remove(parseInt(msg.text)).then((tabs) => {
-        console.log('removed:tab:', msg.text);
-      }).catch((error) => {
-        console.error('background:Error removing:tab', error);
-      });
-      return true
+    return true;
+  }
+  else if (msg.greeting === "navigateToTab") {
+    console.log('background:navigateToTab payload:', msg.text);
+    browser.tabs.update(parseInt(msg.text)).then((tabs) => {
+      console.log('navigateToTab:tab:', msg.text);
+      return true;
+    }).catch((error) => {
+      console.error('background:navigateToTab:Error:', error);
+    });
+    return true;
+  }
+  else if (msg.greeting === "removeTab") {
+    console.log('background:removeTab payload:', msg.text);
+    browser.tabs.remove(parseInt(msg.text)).then((tabs) => {
+      console.log('removed:tab:', msg.text);
+      return true;
+    }).catch((error) => {
+      console.error('background:removeTab:Error:', error);
+    });
+    return true;
   }
 });

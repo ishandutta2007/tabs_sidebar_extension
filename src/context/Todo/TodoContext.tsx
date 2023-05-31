@@ -86,6 +86,7 @@ const TodoProvider = ({ children }) => {
             'id': tab.id,
             'text': tab.title,
             'isDone': false,
+            'active': tab.active,
             'added': new Date().toDateString()
           });
         });

@@ -1,6 +1,7 @@
 import styled from "styled-components";
 const Item = styled.div`
   color: ${props => props.theme.font.primary};
+  filter: ${(props) => (props.active == true ? "brightness(85%)": "")};
   display: flex;
   align-items: center;
   height: 35px;

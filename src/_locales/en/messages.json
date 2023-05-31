@@ -1,58 +1,44 @@
 {
   "appName": {
-    "message": "Sidebar Tabs − view tabs vertically in sidebar",
-    "description": "The title of the application, displayed in the web store."
+    "message": "Sidebar Tabs − view tabs vertically in sidebar"
   },
   "appShortName": {
-    "message": "Sidebar Tabs",
-    "description": "The short_name (maximum of 12 characters recommended) is a short version of the extension's name. "
+    "message": "Sidebar Tabs"
   },
   "appDesc": {
-    "message": "Clean and simple ToDo list accessible right from the page.",
-    "description": "The description of the application, displayed in the web store."
+    "message": "Clean and simple ToDo list accessible right from the page."
   },
   "placeholder": {
-    "message": "Search tab",
-    "description": "Input placeholder"
+    "message": "Search tab"
   },
   "deleteAll": {
-    "message": "Delete all",
-    "description": "Text on button"
+    "message": "Delete all"
   },
   "deleteConfirmation": {
-    "message": "Are you sure you want to delete all items?",
-    "description": "Message in the confirmation dialog"
+    "message": "Are you sure you want to delete all items?"
   },
   "showDone": {
-    "message": "Show done",
-    "description": "Text on button"
+    "message": "Show done"
   },
   "hideDone": {
-    "message": "Hide done",
-    "description": "Text on button"
+    "message": "Hide done"
   },
   "cancel": {
-    "message": "Cancel",
-    "description": "Text on button"
+    "message": "Cancel"
   },
   "darkMode": {
-    "message": "Dark mode",
-    "description": "Dark mode settings label"
+    "message": "Dark mode"
   },
   "buttonSize": {
-    "message": "Button size",
-    "description": "Button size settings label"
+    "message": "Button size"
   },
   "small": {
-    "message": "Small",
-    "description": "Button size option"
+    "message": "Small"
   },
   "medium": {
-    "message": "Medium",
-    "description": "Button size option"
+    "message": "Medium"
   },
   "large": {
-    "message": "Large",
-    "description": "Button size option"
+    "message": "Large"
   }
 }

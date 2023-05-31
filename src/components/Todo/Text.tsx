@@ -2,14 +2,15 @@ import React, { useState } from "react";
 import styled from "styled-components";
 import Input from "./Input";
 const Text = styled.span`
-  text-decoration: ${props => (props.done ? "line-through" : "none")};
+  font-weight: ${(props) => (props.active == true ? 600: 400)};
   flex-grow: 1;
   text-overflow: ellipsis;
   white-space: nowrap;
   overflow: hidden;
   cursor: pointer;
 `;
-const Enhanced = ({ done, id, value, update }) => {
+const Enhanced = ({ done, id, value, active, update }) => {
+  // console.log(done, id, value, active)
   const [showInput, toggleInput] = useState(false);
   if (showInput) {
     return (
@@ -22,7 +23,7 @@ const Enhanced = ({ done, id, value, update }) => {
     );
   }
   return (
-    <Text done={done} onClick={() => toggleInput(true)}>
+    <Text active={active} onClick={() => toggleInput(true)}>
       {value}
     </Text>
   );

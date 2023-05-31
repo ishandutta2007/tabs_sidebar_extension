@@ -41,24 +41,37 @@ export default () => {
   };
   const markAsDone = id => () => dispatch({ type: TOGGLE_DONE, payload: id });
   const removeItem = id => () => dispatch({ type: REMOVE_TODO, payload: id });
+
+  const navigateToTab = id => () => {
+    console.log("navigateToTab:", id);
+    browser.runtime.sendMessage({ greeting: "navigateToTab", text: id});
+    return true;
+  };
+
   const toggleSidebar = (lockDone) => {
-    // lockDone=!lockDone;
     toggleDone(lockDone);
     Global.sidebar_locked = lockDone;
     console.log("toggleSidebar", lockDone);
     console.log("Global.sidebar_locked", Global.sidebar_locked);
   };
+
   const removeAllItems = () => {
     dispatch({ type: REMOVE_ALL });
     toggleDialog(false);
   };
+
   const addItem = ({ target: { value }, key }) => {
     if (key.toLowerCase() === "enter" && value.trim().length > 0) {
       dispatch({ type: ADD_TODO, payload: value.trim() });
       setValue("");
     }
   };
-  const updateItem = payload => dispatch({ type: UPDATE_TODO, payload });
+
+  const updateItem = payload => {
+    console.log("updateItem");
+    dispatch({ type: UPDATE_TODO, payload });
+  };
+
   const groupedItems = items;
   return (
     <Box display="flex" flexDirection="column" height="100%">
@@ -73,15 +86,18 @@ export default () => {
       </Box>
       <Box overflowY="auto" flexGrow="1">
           <Fragment>
-            {groupedItems.map(({ id, text, isDone }) => (
+            {groupedItems.map(({ id, text, isDone, active }) => (
               (text.toLowerCase().includes(value.toLowerCase())?
-                (<Item key={id}>
+                (<Item key={id}
+                       active={active}>
                   <Text
                     done={isDone}
                     id={id}
                     title={text}
                     value={text}
+                    active={active}
                     update={updateItem}
+                    onClick={navigateToTab(id)}
                   />
                   <Control onClick={removeItem(id)}>
                     <CrossIcon />
@@ -95,9 +111,6 @@ export default () => {
       <Box display="flex" flexShrink="0" mt={2}>
         {items.length > 0 && (
           <Fragment>
-            <Button onClick={() => toggleDialog(true)}>
-              <TrashIconFull />
-            </Button>
             <Box width={3} flexShrink={0} />
             <Button onClick={() => toggleSidebar(!lockDone)}>
               {lockDone ? <LockIcon /> : <LockUnlockedIcon />}
