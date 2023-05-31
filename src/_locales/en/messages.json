@@ -12,7 +12,7 @@
     "description": "The description of the application, displayed in the web store."
   },
   "placeholder": {
-    "message": "What are you going to do?",
+    "message": "Search tab",
     "description": "Input placeholder"
   },
   "deleteAll": {

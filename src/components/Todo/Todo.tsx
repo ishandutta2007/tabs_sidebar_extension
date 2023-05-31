@@ -35,7 +35,10 @@ export default () => {
   const [items, dispatch] = useContext(TodoContext);
   const [lockDone, toggleDone] = useState(false);
   const [showDialog, toggleDialog] = useState(false);
-  const handleInputChange = ({ target: { value } }) => setValue(value);
+  const handleInputChange = ({ target: { value } }) => {
+    console.log("searching:", value);
+    setValue(value);
+  };
   const markAsDone = id => () => dispatch({ type: TOGGLE_DONE, payload: id });
   const removeItem = id => () => dispatch({ type: REMOVE_TODO, payload: id });
   const toggleSidebar = (lockDone) => {
@@ -56,7 +59,7 @@ export default () => {
     }
   };
   const updateItem = payload => dispatch({ type: UPDATE_TODO, payload });
-  const groupedItems = items;//groupItemsByDate(items, lockDone);
+  const groupedItems = items;
   return (
     <Box display="flex" flexDirection="column" height="100%">
       <Box flexShrink="0" mb={4}>
@@ -71,18 +74,21 @@ export default () => {
       <Box overflowY="auto" flexGrow="1">
           <Fragment>
             {groupedItems.map(({ id, text, isDone }) => (
-              <Item key={id}>
-                <Text
-                  done={isDone}
-                  id={id}
-                  title={text}
-                  value={text}
-                  update={updateItem}
-                />
-                <Control onClick={removeItem(id)}>
-                  <CrossIcon />
-                </Control>
-              </Item>
+              (text.toLowerCase().includes(value.toLowerCase())?
+                (<Item key={id}>
+                  <Text
+                    done={isDone}
+                    id={id}
+                    title={text}
+                    value={text}
+                    update={updateItem}
+                  />
+                  <Control onClick={removeItem(id)}>
+                    <CrossIcon />
+                  </Control>
+                </Item>
+                ):""
+              )
             ))}
           </Fragment>
       </Box>

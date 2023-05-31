@@ -4,6 +4,7 @@ const Item = styled.div`
   display: flex;
   align-items: center;
   height: 35px;
+  margin-right: 20px;
 
   :not(:last-child) {
     margin-bottom: 10px;
