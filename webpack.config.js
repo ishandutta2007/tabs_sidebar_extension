@@ -1,8 +1,10 @@
 const HTMLPlugin = require('html-webpack-plugin');
 const CopyPlugin = require('copy-webpack-plugin');
 const path = require('path');
-const ExtensionReloader = require('webpack-extension-reloader');
+// const ExtensionReloader = require('webpack-extension-reloader');
 const ManifestVersionSyncPlugin = require('webpack-manifest-version-sync-plugin');
+const UglifyJSPlugin = require('uglifyjs-webpack-plugin');
+const BrowserExtensionPlugin = require("extension-build-webpack-plugin");
 
 module.exports = {
   entry: {
@@ -25,18 +27,7 @@ module.exports = {
   },
   module: {
     rules: [
-      // {
-      //   test: /\.tsx?$/,
-      //   use: 'ts-loader',
-      //   exclude: /node_modules/,
-      //   // use: [
-      //   //   {
-      //   //     loader:'ts-loader',
-      //   //   },
-      //   // ],
-      // },
       {
-        // test: /\.jsx?$/,
         test: /\.(tsx|jsx|ts|js)x?$/,
         exclude: /node_modules/,
         use: [
@@ -73,14 +64,30 @@ module.exports = {
       { from: './src/assets', to: './assets' },
       { from: './src/manifest.json', to: './manifest.json' },
     ]),
-    new ExtensionReloader({
-      manifest: path.resolve(__dirname, './src/manifest.json'),
-    }),
+    // new ExtensionReloader({
+    //   manifest: path.resolve(__dirname, './src/manifest.json'),
+    // }),
     new ManifestVersionSyncPlugin(),
+    new BrowserExtensionPlugin({devMode: false, name: "build/chromium.zip", directory: "src", updateType: "minor"}),
   ],
   optimization: {
-    minimize: false,
+    minimize: true,
+    minimizer: [
+      new UglifyJSPlugin({
+        uglifyOptions: {
+          compress: {
+            drop_console: true,
+            drop_debugger: true,
+          }
+        }
+      })
+    ]
   },
   mode: 'production',
   stats: 'minimal',
+  performance: {
+    hints: false,
+    maxEntrypointSize: 512000,
+    maxAssetSize: 512000
+  }
 };
