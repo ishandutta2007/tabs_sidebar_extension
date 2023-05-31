@@ -7,6 +7,7 @@ import DateLabel from "components/DateLabel";
 import Button from "components/Button";
 import Control from "components/Control";
 import Box from "components/Box";
+import Input from "components/Input";
 import Dialog from "components/Dialog";
 import {
   TodoContext,
@@ -64,7 +65,7 @@ export default () => {
   return (
     <Box display="flex" flexDirection="column" height="100%">
       <Box flexShrink="0" mb={4}>
-        <div
+        <Input
           autoFocus
           placeholder={browser.i18n.getMessage("placeholder")}
           onKeyPress={addItem}
