@@ -2,7 +2,7 @@ import React, { Fragment, useContext, useState } from "react";
 import browser from "webextension-polyfill";
 import { ThemeProvider } from "styled-components";
 import invertTheme from "theme/invertTheme";
-import Input from "components/Input";
+// import Input from "components/Input";
 import Checkbox from "components/Checkbox";
 import DateLabel from "components/DateLabel";
 import Button from "components/Button";
@@ -42,12 +42,6 @@ export default () => {
   const markAsDone = id => () => dispatch({ type: TOGGLE_DONE, payload: id });
   const removeItem = id => () => dispatch({ type: REMOVE_TODO, payload: id });
 
-  const navigateToTab = id => () => {
-    console.log("navigateToTab:", id);
-    browser.runtime.sendMessage({ greeting: "navigateToTab", text: id});
-    return true;
-  };
-
   const toggleSidebar = (lockDone) => {
     toggleDone(lockDone);
     Global.sidebar_locked = lockDone;
@@ -67,16 +61,16 @@ export default () => {
     }
   };
 
-  const updateItem = payload => {
-    console.log("updateItem");
-    dispatch({ type: UPDATE_TODO, payload });
-  };
+  // const updateItem = payload => {
+  //   console.log("updateItem");
+  //   dispatch({ type: UPDATE_TODO, payload });
+  // };
 
   const groupedItems = items;
   return (
     <Box display="flex" flexDirection="column" height="100%">
       <Box flexShrink="0" mb={4}>
-        <Input
+        <div
           autoFocus
           placeholder={browser.i18n.getMessage("placeholder")}
           onKeyPress={addItem}
@@ -96,8 +90,6 @@ export default () => {
                     title={text}
                     value={text}
                     active={active}
-                    update={updateItem}
-                    onClick={navigateToTab(id)}
                   />
                   <Control onClick={removeItem(id)}>
                     <CrossIcon />

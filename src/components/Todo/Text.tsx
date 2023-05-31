@@ -1,6 +1,14 @@
 import React, { useState } from "react";
 import styled from "styled-components";
-import Input from "./Input";
+// import Input from "./Input";
+import browser from "webextension-polyfill";
+
+function navigateToTab(id){
+  console.log("navigateToTab:", id);
+  browser.runtime.sendMessage({ greeting: "navigateToTab", text: id});
+  return true;
+};
+
 const Text = styled.span`
   font-weight: ${(props) => (props.active == true ? 600: 400)};
   flex-grow: 1;
@@ -9,23 +17,38 @@ const Text = styled.span`
   overflow: hidden;
   cursor: pointer;
 `;
-const Enhanced = ({ done, id, value, active, update }) => {
-  // console.log(done, id, value, active)
-  const [showInput, toggleInput] = useState(false);
-  if (showInput) {
+const Enhanced = ({ done, id, value, active }) => {
+  console.log(done, id, value, active);
+  // const [showInput, toggleInput] = useState(false);
+  // try {
+  //   if (showInput) {
+  //     return (
+  //       <Text
+  //         value={value}
+  //         id={id}
+  //         onClose={() => toggleInput(false)}
+  //         onClick={() => console.log(id + " Clicked1")}
+  //       />
+  //     );
+  //   }
+  // } catch(error) {
+  //   console.log(error);
+  // }
+
+  try {
     return (
-      <Input
-        value={value}
-        id={id}
-        update={update}
-        onClose={() => toggleInput(false)}
-      />
+      <Text active={active} onClick={() => {
+        console.log(id + " Clicked2");
+        return navigateToTab(id);
+        // toggleInput(true);
+      } }>
+        {value}
+      </Text>
     );
+  } catch(error) {
+    console.log(error);
   }
-  return (
-    <Text active={active} onClick={() => toggleInput(true)}>
-      {value}
-    </Text>
-  );
+
 };
+
 export default Enhanced;
