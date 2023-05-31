@@ -27,13 +27,6 @@ browser.runtime.onMessage.addListener(async (msg, sender) => {
     } catch(error) {
       console.error('background:navigateToTab:Error:', error);
     }
-
-    // browser.tabs.update(parseInt(msg.text)).then((tabs) => {
-    //   console.log('navigateToTab:tab:', msg.text);
-    //   return true;
-    // }).catch((error) => {
-    //   console.error('background:navigateToTab:Error:', error);
-    // });
     return true;
   }
   else if (msg.greeting === "removeTab") {

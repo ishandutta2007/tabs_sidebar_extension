@@ -2,7 +2,6 @@ import React, { Fragment, useContext, useState } from "react";
 import browser from "webextension-polyfill";
 import { ThemeProvider } from "styled-components";
 import invertTheme from "theme/invertTheme";
-// import Input from "components/Input";
 import Checkbox from "components/Checkbox";
 import DateLabel from "components/DateLabel";
 import Button from "components/Button";
@@ -60,11 +59,6 @@ export default () => {
       setValue("");
     }
   };
-
-  // const updateItem = payload => {
-  //   console.log("updateItem");
-  //   dispatch({ type: UPDATE_TODO, payload });
-  // };
 
   const groupedItems = items;
   return (

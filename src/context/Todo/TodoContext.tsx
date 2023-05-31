@@ -91,15 +91,11 @@ const TodoProvider = ({ children }) => {
           });
         });
         console.log('TodoContext:tabs_min:', tabs_min);
-        // let tabs_min_sliced = tabs_min.slice(0,5)
-        // console.log('TodoContext:tabs_min_sliced:', tabs_min_sliced);
         console.log('TodoContext:Number of tabs:', tabs.length);
         dispatch({ type: INIT, payload: tabs_min });
       }
       return true
     });
-    // const { list } = await browser.storage.sync.get({ list: getStubData() });
-    // dispatch({ type: INIT, payload: list });
     initRef.current = true;
   }, []);
   return (
