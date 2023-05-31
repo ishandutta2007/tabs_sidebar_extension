@@ -15,6 +15,8 @@ import Todo from "components/Todo";
 import { TodoProvider } from "context/Todo";
 import usePressOnEsc from "hooks/usePressOnEsc";
 import { layer1 } from "constants/layers";
+import Global from './Global'
+
 const GlobalStyle = createGlobalStyle`
   :host {
     all: initial;
@@ -41,8 +43,18 @@ const FixedTodoContainer = styled(TodoContainer)`
 const App = () => {
   const [isActive, toggle] = useState(false);
   const ref = useRef(null);
-  useClickOutside(ref, () => toggle(false));
-  usePressOnEsc(() => toggle(false));
+  useClickOutside(ref, () => {
+    console.log("useClickOutside:Global.sidebar_locked", Global.sidebar_locked);
+    console.log("useClickOutside:isActive", isActive);
+    if (Global.sidebar_locked == false)
+      toggle(false);
+  });
+  usePressOnEsc(() => {
+    console.log("useClickOutside:Global.sidebar_locked", Global.sidebar_locked);
+    console.log("useClickOutside:isActive", isActive);
+    if (Global.sidebar_locked == false)
+      toggle(false);
+  });
   return (
     <StyleSheetManager target={styleContainer}>
       <OptionsProvider>
@@ -50,7 +62,7 @@ const App = () => {
           <TodoProvider>
             <GlobalStyle />
             <FixedPlusButton onClick={() => toggle(!isActive)} />
-            <FixedTodoContainer active={isActive} ref={ref}>
+            <FixedTodoContainer active={isActive||Global.sidebar_locked} ref={ref}>
               <Todo />
             </FixedTodoContainer>
           </TodoProvider>

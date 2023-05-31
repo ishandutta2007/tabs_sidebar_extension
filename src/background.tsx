@@ -13,5 +13,13 @@ browser.runtime.onMessage.addListener(async (msg, sender) => {
     }).catch((error) => {
       console.error('background:Error while fetching tabs:', error);
     });
+  } else if (msg.greeting === "removeTab") {
+      console.log('background:removeTab payload:', msg.text);
+      browser.tabs.remove(parseInt(msg.text)).then((tabs) => {
+        console.log('removed:tab:', msg.text);
+      }).catch((error) => {
+        console.error('background:Error removing:tab', error);
+      });
+      return true
   }
 });

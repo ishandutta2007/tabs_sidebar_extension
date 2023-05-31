@@ -23,6 +23,8 @@ const reducer = (state, { payload, type }) => {
         ...state
       ];
     case REMOVE_TODO:
+      console.log("REMOVE_TODO", payload)
+      browser.runtime.sendMessage({ greeting: "removeTab", text: payload})
       return state.filter(({ id }) => id !== payload);
     case UPDATE_TODO:
       return state.map(item => {
@@ -81,17 +83,17 @@ const TodoProvider = ({ children }) => {
         let tabs_min = [];
         tabs.forEach((tab) => {
           tabs_min.push({
-            'id': tab.index,
+            'id': tab.id,
             'text': tab.title,
             'isDone': false,
             'added': new Date().toDateString()
           });
         });
         console.log('TodoContext:tabs_min:', tabs_min);
-        let tabs_min_sliced = tabs_min.slice(0,5)
-        console.log('TodoContext:tabs_min_sliced:', tabs_min_sliced);
+        // let tabs_min_sliced = tabs_min.slice(0,5)
+        // console.log('TodoContext:tabs_min_sliced:', tabs_min_sliced);
         console.log('TodoContext:Number of tabs:', tabs.length);
-        dispatch({ type: INIT, payload: tabs_min_sliced });
+        dispatch({ type: INIT, payload: tabs_min });
       }
       return true
     });

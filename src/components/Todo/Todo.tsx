@@ -18,21 +18,33 @@ import {
   TOGGLE_DONE
 } from "context/Todo";
 import TrashIcon from "assets/icons/trash.svg";
-import TrashIcon2 from "assets/icons/trash-2.svg";
+import TrashIconFull from "assets/icons/trash-full.svg";
+import CrossIcon from "assets/icons/cross.svg";
 import EyeIcon from "assets/icons/eye.svg";
+import LockIcon from "assets/icons/lock.svg";
+import LockUnlockedIcon from "assets/icons/lock-unlocked.svg";
 import EyeOffIcon from "assets/icons/eye-off.svg";
 import SettingsIcon from "assets/icons/sliders.svg";
 import Item from "./Item";
 import Text from "./Text";
 import groupItemsByDate from "./groupItemsByDate";
+import Global from '../../Global'
+
 export default () => {
   const [value, setValue] = useState("");
   const [items, dispatch] = useContext(TodoContext);
-  const [hideDone, toggleDone] = useState(false);
+  const [lockDone, toggleDone] = useState(false);
   const [showDialog, toggleDialog] = useState(false);
   const handleInputChange = ({ target: { value } }) => setValue(value);
   const markAsDone = id => () => dispatch({ type: TOGGLE_DONE, payload: id });
   const removeItem = id => () => dispatch({ type: REMOVE_TODO, payload: id });
+  const toggleSidebar = (lockDone) => {
+    // lockDone=!lockDone;
+    toggleDone(lockDone);
+    Global.sidebar_locked = lockDone;
+    console.log("toggleSidebar", lockDone);
+    console.log("Global.sidebar_locked", Global.sidebar_locked);
+  };
   const removeAllItems = () => {
     dispatch({ type: REMOVE_ALL });
     toggleDialog(false);
@@ -44,7 +56,7 @@ export default () => {
     }
   };
   const updateItem = payload => dispatch({ type: UPDATE_TODO, payload });
-  const groupedItems = groupItemsByDate(items, hideDone);
+  const groupedItems = items;//groupItemsByDate(items, lockDone);
   return (
     <Box display="flex" flexDirection="column" height="100%">
       <Box flexShrink="0" mb={4}>
@@ -57,12 +69,8 @@ export default () => {
         />
       </Box>
       <Box overflowY="auto" flexGrow="1">
-        {Object.keys(groupedItems).map(date => (
           <Fragment>
-            <Box mb={2}>
-              <DateLabel>{date}</DateLabel>
-            </Box>
-            {groupedItems[date].map(({ id, text, isDone }) => (
+            {groupedItems.map(({ id, text, isDone }) => (
               <Item key={id}>
                 <Box
                   display="flex"
@@ -81,22 +89,21 @@ export default () => {
                   update={updateItem}
                 />
                 <Control onClick={removeItem(id)}>
-                  <TrashIcon />
+                  <CrossIcon />
                 </Control>
               </Item>
             ))}
           </Fragment>
-        ))}
       </Box>
       <Box display="flex" flexShrink="0" mt={2}>
         {items.length > 0 && (
           <Fragment>
             <Button onClick={() => toggleDialog(true)}>
-              <TrashIcon2 />
+              <TrashIconFull />
             </Button>
             <Box width={3} flexShrink={0} />
-            <Button onClick={() => toggleDone(!hideDone)}>
-              {hideDone ? <EyeOffIcon /> : <EyeIcon />}
+            <Button onClick={() => toggleSidebar(!lockDone)}>
+              {lockDone ? <LockIcon /> : <LockUnlockedIcon />}
             </Button>
             <Box width={3} flexShrink={0} />
           </Fragment>
