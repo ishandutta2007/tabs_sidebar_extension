@@ -9,6 +9,14 @@ const GlobalStyle = createGlobalStyle`
   body {
     ${globalStyle};
     padding: 20px;
+    margin: auto;
+    width: 50%;
+    border: 3px solid green;
+    .react-switch-handle {
+      height: 100%;
+      width: 50%;
+      top: 0px!important;
+    }
   }
 `;
 const OptionsPage = () => {
