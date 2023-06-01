@@ -1,11 +1,14 @@
 import "libs/polyfills";
 import browser from "webextension-polyfill";
 browser.runtime.onMessage.addListener(async (msg, sender) => {
-  if (msg.greeting === "updateBadge") {
-    browser.browserAction.setBadgeText({ text: msg.text });
+  if (msg.greeting === "roboregular") {
+    return browser.runtime.getURL("assets/fonts/Roboto-Regular.ttf") 
+  } else if (msg.greeting === "robomedium") {
+    return browser.runtime.getURL("assets/fonts/Roboto-Medium.ttf") 
+  } else if (msg.greeting === "updateBadge") {
+    browser.action.setBadgeText({tabId: sender.tab.id, text: msg.text });
     return true;
-  }
-  else if (msg.greeting === "showOptionsPage") {
+  } else if (msg.greeting === "showOptionsPage") {
     browser.runtime.openOptionsPage();
     return true;
   }
@@ -14,7 +17,7 @@ browser.runtime.onMessage.addListener(async (msg, sender) => {
       console.log('background:getTabInfo:tabs:', tabs);
       const response = { greeting: 'sendTabInfo', payload: { tabs } };
       browser.tabs.sendMessage(sender.tab.id, response); // Send the response directly to the content script
-      return true;
+      // return true;
     }).catch((error) => {
       console.error('background:getTabInfo:Error:', error);
     });
@@ -40,3 +43,4 @@ browser.runtime.onMessage.addListener(async (msg, sender) => {
     return true;
   }
 });
+
