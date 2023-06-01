@@ -4,8 +4,4 @@
 
 ![Example](example.gif)
 
-![Example](screenshot-dark.png)
-
-![Example](screenshot-options.png)
-
 ---
