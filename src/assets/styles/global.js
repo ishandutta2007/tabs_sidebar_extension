@@ -1,8 +1,8 @@
 import { css } from 'styled-components';
 import browser from 'webextension-polyfill';
 
-const robotoRegular = browser.extension.getURL('assets/fonts/Roboto-Regular.ttf');
-const robotoMedium = browser.extension.getURL('assets/fonts/Roboto-Medium.ttf');
+const robotoRegular = browser.runtime.sendMessage({ greeting: "roboregular" });
+const robotoMedium = browser.runtime.sendMessage({ greeting: "robomedium" });
 
 const styles = css`
   font-family: Roboto, sans-serif;
