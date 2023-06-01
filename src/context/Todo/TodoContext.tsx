@@ -94,7 +94,7 @@ const TodoProvider = ({ children }) => {
         console.log('TodoContext:Number of tabs:', tabs.length);
         dispatch({ type: INIT, payload: tabs_min });
       }
-      return true
+      return true;
     });
     initRef.current = true;
   }, []);
