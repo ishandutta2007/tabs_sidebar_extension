@@ -1,9 +1,9 @@
 {
+    "manifest_version": 3,
     "name": "__MSG_appName__",
     "description": "__MSG_appDesc__",
     "default_locale": "en",
-    "version": "0.1.0",
-    "manifest_version": 3,
+    "version": "0.0.0",
     "icons": {
         "16": "assets/img/icon-16x16.png",
         "48": "assets/img/icon-48x48.png",
@@ -32,8 +32,7 @@
             ],
             "js": [
                 "content.js"
-            ],
-            "css": []
+            ]
         }
     ]
 }
