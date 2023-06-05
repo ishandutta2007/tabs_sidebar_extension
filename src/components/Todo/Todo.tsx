@@ -45,8 +45,11 @@ export default () => {
   const toggleSidebar = (lockDone) => {
     toggleDone(lockDone);
     Global.sidebar_locked = lockDone;
+    if (Global.sidebar_locked)
+      Global.sidebar_isopen = true;
     console.log("toggleSidebar", lockDone);
     console.log("Global.sidebar_locked", Global.sidebar_locked);
+    console.log("Global.sidebar_isopen", Global.sidebar_isopen);
   };
 
   const removeAllItems = () => {

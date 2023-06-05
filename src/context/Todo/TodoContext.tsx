@@ -1,6 +1,8 @@
 import React, { useReducer, useEffect, useRef } from "react";
 import browser from "webextension-polyfill";
 import getStubData from "./getStubData";
+import Global from '../../Global'
+
 export const ADD_TODO = "ADD_TODO";
 export const REMOVE_TODO = "REMOVE_TODO";
 export const UPDATE_TODO = "UPDATE_TODO";
@@ -98,6 +100,33 @@ const TodoProvider = ({ children }) => {
     });
     initRef.current = true;
   }, []);
+
+  useEffect(async () => {
+    console.log("TodoContext:Global.sidebar_isopen", Global.sidebar_isopen);
+    browser.runtime.sendMessage({ greeting: "getTabInfo" })
+    browser.runtime.onMessage.addListener((msg) => {
+      if (msg.greeting === 'sendTabInfo') {
+        const { tabs } = msg.payload;
+        console.log('TodoContext:tabs:', tabs);
+        let tabs_min = [];
+        tabs.forEach((tab) => {
+          tabs_min.push({
+            'id': tab.id,
+            'text': tab.title,
+            'isDone': false,
+            'active': tab.active,
+            'added': new Date().toDateString()
+          });
+        });
+        console.log('TodoContext:tabs_min:', tabs_min);
+        console.log('TodoContext:Number of tabs:', tabs.length);
+        dispatch({ type: INIT, payload: tabs_min });
+      }
+      return true;
+    });
+    initRef.current = true;
+  }, [Global.sidebar_isopen]);
+
   return (
     <TodoContext.Provider value={[state, dispatch]}>
       {children}

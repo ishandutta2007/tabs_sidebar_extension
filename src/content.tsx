@@ -46,14 +46,18 @@ const App = () => {
   useClickOutside(ref, () => {
     console.log("useClickOutside:Global.sidebar_locked", Global.sidebar_locked);
     console.log("useClickOutside:isActive", isActive);
-    if (Global.sidebar_locked == false)
+    if (Global.sidebar_locked == false) {
       toggle(false);
+      Global.sidebar_isopen = false;
+    }
   });
   usePressOnEsc(() => {
     console.log("useClickOutside:Global.sidebar_locked", Global.sidebar_locked);
     console.log("useClickOutside:isActive", isActive);
-    if (Global.sidebar_locked == false)
+    if (Global.sidebar_locked == false) {
       toggle(false);
+      Global.sidebar_isopen = false;
+    }
   });
   return (
     <StyleSheetManager target={styleContainer}>
