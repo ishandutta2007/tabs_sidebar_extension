@@ -15,18 +15,7 @@ const GlobalStyle = createGlobalStyle`
   }
 `;
 const Popup = () => {
-  return (
-    <OptionsProvider>
-      <ThemeProvider>
-        <GlobalStyle />
-        <TodoProvider>
-          <TodoContainer>
-            <Todo />
-          </TodoContainer>
-        </TodoProvider>
-      </ThemeProvider>
-    </OptionsProvider>
-  );
+  return (<div/>);
 };
 const root = document.createElement("div");
 document.body.appendChild(root);

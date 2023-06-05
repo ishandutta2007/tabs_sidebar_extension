@@ -5,6 +5,7 @@ const path = require('path');
 // const ManifestVersionSyncPlugin = require('webpack-manifest-version-sync-plugin');
 const UglifyJSPlugin = require('uglifyjs-webpack-plugin');
 const BrowserExtensionPlugin = require("extension-build-webpack-plugin");
+const ZipPlugin = require('zip-webpack-plugin');
 
 module.exports = {
   entry: {
@@ -68,7 +69,10 @@ module.exports = {
     //   manifest: path.resolve(__dirname, './src/manifest.json'),
     // }),
     // new ManifestVersionSyncPlugin(),
-    new BrowserExtensionPlugin({devMode: false, name: "build/chromium.zip", directory: "src", updateType: "minor"}),
+    // new BrowserExtensionPlugin({devMode: false, name: "build/chromium.zip", directory: "src", updateType: "minor"}),
+    new ZipPlugin({
+      filename: 'chromium.zip'
+    })
   ],
   optimization: {
     // minimize: true,

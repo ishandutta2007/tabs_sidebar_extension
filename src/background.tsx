@@ -1,5 +1,13 @@
 import "libs/polyfills";
 import browser from "webextension-polyfill";
+
+browser.runtime.onInstalled.addListener((details) => {
+  if (details.reason === 'install') {
+    browser.runtime.openOptionsPage();
+    return true;
+  }
+});
+
 browser.runtime.onMessage.addListener(async (msg, sender) => {
   if (msg.greeting === "roboregular") {
     return browser.runtime.getURL("assets/fonts/Roboto-Regular.ttf")
